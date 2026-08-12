@@ -1,0 +1,13 @@
+# Render blueprint: pick this repo under New > Blueprint and it configures itself.
+# Docker on the free plan, which needs no card. Free web services sleep after 15
+# minutes idle, so the first request after a quiet spell takes 30-60 seconds
+# while the container and the ephemeris load.
+services:
+  - type: web
+    name: eclipse-2026
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit

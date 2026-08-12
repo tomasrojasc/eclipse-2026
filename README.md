@@ -1,14 +1,3 @@
----
-title: Eclipse 2026 Planner
-emoji: 🌒
-colorFrom: indigo
-colorTo: yellow
-sdk: docker
-app_port: 7860
-pinned: false
-short_description: Plan eclipse photography for the 12 Aug 2026 totality in Spain
----
-
 # Ephemeris — eclipse photo planner for Spain, 12 August 2026
 
 Pick a spot on the map, scrub through the eclipse, and build a shot pattern that
@@ -197,6 +186,29 @@ from now, and is clickable to scrub the timeline to that instant.
 Exposure values are starting points to bracket around, not gospel — they assume
 ISO 200, f/8 as a reference. The very low Sun means extra atmospheric extinction,
 so expect to need more light than a high-altitude eclipse would want.
+
+## Deploying it
+
+The backend does real work per request, so this needs a host that runs Python,
+not a static one. `Dockerfile` builds the frontend, installs the backend and
+fetches all three data sets, each verifying itself. One container serves both the
+API and the app, so there is nothing else to wire up.
+
+| Host | Free? | Notes |
+| --- | --- | --- |
+| Render | yes, no card | `render.yaml` included; pick the repo under New > Blueprint. Sleeps after 15 min idle, 30-60 s cold start. |
+| Koyeb | yes, no card | No sleep, limited CPU. Point it at the Dockerfile. |
+| Fly.io | card required | Small always-on VM, closest to Spain. |
+| Hugging Face Spaces | **no** | Docker Spaces now need PRO; only static Spaces are free. |
+
+GitHub Pages cannot host this: it serves static files only. A static export is
+possible but would mean precomputing per-site results, and full physics for all
+16,467 towns inside totality comes to about 4.1 GB — over the Pages limit. The
+timeline and flat-limb arrays dominate at ~176 KB gzipped per site.
+
+Saved shots are scoped to the browser that made them, via an id kept in
+`localStorage` and sent as `X-Client-Id`. Without that, a shared deployment would
+give every visitor the same shot list.
 
 ## Tests
 
