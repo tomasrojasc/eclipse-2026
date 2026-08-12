@@ -1,0 +1,19 @@
+# Fetched at build time, never committed (~55 MB)
+backend/data/
+backend/ephem/
+backend/app/path_2026.json
+backend/app/eclipse_plan.db
+
+# Build output and caches
+frontend/node_modules/
+frontend/dist/
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Test screenshots
+e2e-*.png
+*.png
+!frontend/public/**

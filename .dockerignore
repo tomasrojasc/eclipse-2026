@@ -1,0 +1,10 @@
+.venv/
+frontend/node_modules/
+frontend/dist/
+backend/data/
+backend/ephem/
+backend/app/eclipse_plan.db
+.pytest_cache/
+__pycache__/
+*.pyc
+.git/
